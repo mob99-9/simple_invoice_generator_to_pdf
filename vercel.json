@@ -18,7 +18,6 @@
     "LOG_CHANNEL": "stderr",
     "CACHE_STORE": "array",
     "SESSION_DRIVER": "cookie",
-    "VIEW_COMPILED_PATH": "/tmp",
-    "DATA_CACHE_PATH": "/tmp"
+    "VIEW_COMPILED_PATH": "/tmp"
   }
 }
