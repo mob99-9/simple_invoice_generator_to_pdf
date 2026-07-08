@@ -3,7 +3,16 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Http\Request;
+
+// Force writeable path on Vercel's immutable container filesystem
+if (isset($_SERVER['VERCEL_URL'])) {
+    $subFolders = ['/tmp/app', '/tmp/framework/cache', '/tmp/framework/views', '/tmp/framework/sessions', '/tmp/bootstrap/cache'];
+    foreach ($subFolders as $folder) {
+        if (!is_dir($folder)) {
+            mkdir($folder, 0777, true);
+        }
+    }
+}
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -11,11 +20,9 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware): void {
+    ->withMiddleware(function (Middleware $middleware) {
         //
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->shouldRenderJsonWhen(
-            fn (Request $request) => $request->is('api/*'),
-        );
+    ->withExceptions(function (Exceptions $exceptions) {
+        //
     })->create();
