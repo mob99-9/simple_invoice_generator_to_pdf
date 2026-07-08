@@ -1,0 +1,22 @@
+{
+    "name": "yourcompany/invoice-app",
+    "type": "project",
+    "description": "Mobile invoice generator with PDF export",
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^11.0",
+        "barryvdh/laravel-dompdf": "^3.1"
+    },
+    "require-dev": {
+        "laravel/tinker": "^2.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
