@@ -14,15 +14,11 @@
   ],
   "env": {
     "APP_ENV": "production",
-    "APP_DEBUG": "false",
+    "APP_DEBUG": "true",
     "LOG_CHANNEL": "stderr",
-    "CACHE_DRIVER": "array",
+    "CACHE_STORE": "array",
     "SESSION_DRIVER": "cookie",
-    "APP_CONFIG_CACHE": "/tmp/config.php",
-    "APP_EVENTS_CACHE": "/tmp/events.php",
-    "APP_PACKAGES_CACHE": "/tmp/packages.php",
-    "APP_ROUTES_CACHE": "/tmp/routes.php",
-    "APP_SERVICES_CACHE": "/tmp/services.php",
-    "VIEW_COMPILED_PATH": "/tmp"
+    "VIEW_COMPILED_PATH": "/tmp",
+    "DATA_CACHE_PATH": "/tmp"
   }
 }

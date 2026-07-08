@@ -4,7 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
-// Force writeable path on Vercel's immutable container filesystem
+// Force writable storage structures inside Vercel's serverless environment
 if (isset($_SERVER['VERCEL_URL'])) {
     $subFolders = ['/tmp/app', '/tmp/framework/cache', '/tmp/framework/views', '/tmp/framework/sessions', '/tmp/bootstrap/cache'];
     foreach ($subFolders as $folder) {
@@ -12,6 +12,13 @@ if (isset($_SERVER['VERCEL_URL'])) {
             mkdir($folder, 0777, true);
         }
     }
+    
+    // Explicitly update application configurations globally
+    config([
+        'view.compiled' => '/tmp/framework/views',
+        'cache.stores.file.path' => '/tmp/framework/cache',
+        'session.files' => '/tmp/framework/sessions'
+    ]);
 }
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -21,7 +28,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
